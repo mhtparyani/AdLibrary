@@ -135,12 +135,6 @@ public class AdsDialog {
                         final DialogModal dialogModal = new DialogModal();
                         dialogModal.setAppTitle(jsonObject.optString("app_title"));
                         dialogModal.setAppDesc(jsonObject.optString("app_desc"));
-                        dialogModal.setIconUrl(jsonObject.optString("app_icon"));
-                        dialogModal.setLargeImageUrl(jsonObject.optString("app_header_image"));
-                        dialogModal.setCtaText(jsonObject.optString("app_cta_text"));
-                        dialogModal.setPackageOrUrl(jsonObject.optString("app_uri"));
-                        dialogModal.setRating(jsonObject.optString("app_rating"));
-                        dialogModal.setPrice(jsonObject.optString("app_price"));
 
                         val.add(dialogModal);
                     }
@@ -158,10 +152,6 @@ public class AdsDialog {
 
             final View view = View.inflate(mCompatActivity, R.layout.ads_dialog_layout, null);
 
-            if (dialogModal.getIconUrl().trim().isEmpty() || !dialogModal.getIconUrl().trim().startsWith("http"))
-                throw new IllegalArgumentException("Icon URL should not be Null or Blank & should start with \"http\"");
-            if (!dialogModal.getLargeImageUrl().trim().isEmpty() && !dialogModal.getLargeImageUrl().trim().startsWith("http"))
-                throw new IllegalArgumentException("Header Image URL should start with \"http\"");
             if (dialogModal.getAppTitle().trim().isEmpty() || dialogModal.getAppDesc().trim().isEmpty())
                 throw new IllegalArgumentException("Title & description should not be Null or Blank.");
 
@@ -169,19 +159,19 @@ public class AdsDialog {
             CardView cardView = view.findViewById(R.id.houseAds_card_view);
             cardView.setRadius(cardCorner);
 
-            final Button cta = view.findViewById(R.id.houseAds_cta);
-            GradientDrawable gd = (GradientDrawable) cta.getBackground();
-            gd.setCornerRadius(ctaCorner);
+            //final Button cta = view.findViewById(R.id.houseAds_cta);
+            //GradientDrawable gd = (GradientDrawable) cta.getBackground();
+           // gd.setCornerRadius(ctaCorner);
 
             final ImageView icon = view.findViewById(R.id.houseAds_app_icon);
             final ImageView headerImage = view.findViewById(R.id.houseAds_header_image);
             TextView title = view.findViewById(R.id.houseAds_title);
             TextView description = view.findViewById(R.id.houseAds_description);
             final RatingBar ratings = view.findViewById(R.id.houseAds_rating);
-            TextView price = view.findViewById(R.id.houseAds_price);
+            //TextView price = view.findViewById(R.id.houseAds_price);
 
 
-            Picasso.get().load(dialogModal.getIconUrl()).into(icon, new Callback() {
+           /* Picasso.get().load(dialogModal.getIconUrl()).into(icon, new Callback() {
                 @Override
                 public void onSuccess() {
                     isAdLoaded = true;
@@ -236,7 +226,7 @@ public class AdsDialog {
             description.setText(dialogModal.getAppDesc());
             cta.setText(dialogModal.getCtaText());
             if (dialogModal.getPrice().trim().isEmpty()) price.setVisibility(View.GONE);
-            else price.setText(String.format("Price: %s", dialogModal.getPrice()));
+            else price.setText(String.format("Price: %s", dialogModal.getPrice()));*/
 
 
             builder.setView(view);
@@ -253,7 +243,7 @@ public class AdsDialog {
                 if (mAdListener != null) mAdListener.onAdClosed();
             });
 
-            cta.setOnClickListener(view1 -> {
+            /*cta.setOnClickListener(view1 -> {
                 dialog.dismiss();
 
                 String packageOrUrl = dialogModal.getPackageOrUrl();
@@ -269,7 +259,7 @@ public class AdsDialog {
                         mCompatActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + packageOrUrl)));
                     }
                 }
-            });
+            });*/
         }
 
     }

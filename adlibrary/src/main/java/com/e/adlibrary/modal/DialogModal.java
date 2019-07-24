@@ -7,14 +7,14 @@
 package com.e.adlibrary.modal;
 
 public class DialogModal {
-    private String iconUrl;
     private String appTitle;
     private String appDesc;
-    private String largeImageUrl;
-    private String packageNameOrUrl;
-    private String ctaText;
-    private String price;
     private String rating;
+    private String downloads;
+    private String imgUrl;
+    private String width;
+    private String height;
+    private String redirectUrl;
 
     public void setAppTitle(String appTitle) {
         this.appTitle = appTitle;
@@ -22,34 +22,6 @@ public class DialogModal {
 
     public void setAppDesc(String appDesc) {
         this.appDesc = appDesc;
-    }
-
-    public void setCtaText(String ctaText) {
-        this.ctaText = ctaText;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-    }
-
-    public void setLargeImageUrl(String largeImageUrl) {
-        this.largeImageUrl = largeImageUrl;
-    }
-
-    public void setPackageOrUrl(String pgnurl) {
-        this.packageNameOrUrl = pgnurl;
-    }
-
-    public void setPrice(String val) {
-        this.price = val;
-    }
-
-    public void setRating(String val) {
-        this.rating = val;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
     }
 
     public String getAppTitle() {
@@ -60,20 +32,48 @@ public class DialogModal {
         return appDesc;
     }
 
-    public String getLargeImageUrl() {
-        return largeImageUrl;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
-    public String getPackageOrUrl() {
-        return packageNameOrUrl;
+    public String getDownloads() {
+        return downloads;
     }
 
-    public String getCtaText() {
-        return ctaText;
+    public void setDownloads(String downloads) {
+        this.downloads = downloads;
     }
 
-    public String getPrice() {
-        return price;
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getWidth() {
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
     }
 
     public float getRating() {

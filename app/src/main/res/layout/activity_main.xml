@@ -21,7 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-
+            <ImageView
+                android:id="@+id/houseAds_header_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
             <LinearLayout
                 android:id="@+id/holder"
                 android:layout_width="match_parent"
@@ -71,32 +77,9 @@
                             android:isIndicator="true"
                             android:stepSize="0.5"
                             style="@style/Widget.AppCompat.RatingBar.Small"/>
-
-                        <TextView
-                            android:id="@+id/houseAds_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginLeft="10dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-
-            <Button
-                android:layout_below="@id/holder"
-                android:id="@+id/houseAds_cta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:background="?colorAccent"
-                android:textSize="12sp" />
-
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -75,31 +75,9 @@
                         android:isIndicator="true"
                         style="@style/Widget.AppCompat.RatingBar.Small"/>
 
-                    <TextView
-                        android:id="@+id/houseAds_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp" />
                 </LinearLayout>
         </LinearLayout>
         </LinearLayout>
-
-
-        <Button
-            android:layout_below="@id/houseAds_ad_asset_holder"
-            android:id="@+id/houseAds_cta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:background="@drawable/button_bg"
-            android:textSize="12sp" />
-
 
 </RelativeLayout>
 </androidx.cardview.widget.CardView>
