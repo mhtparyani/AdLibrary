@@ -16,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,12 +37,19 @@ import com.e.adlibrary.modal.HouseAdsNativeView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.startapp.android.publish.ads.nativead.NativeAdDetails;
+import com.startapp.android.publish.ads.nativead.NativeAdPreferences;
+import com.startapp.android.publish.ads.nativead.StartAppNativeAd;
+import com.startapp.android.publish.adsCommon.Ad;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
+import com.startapp.android.publish.adsCommon.adListeners.AdEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 @SuppressWarnings("unused")
 public class AdsNative {
@@ -57,10 +65,12 @@ public class AdsNative {
     private View customNativeView;
     private NativeAdListener mNativeAdListener;
     private NativeAdListener.CallToActionListener ctaListener;
-
+    private StartAppNativeAd startAppNativeAd;
     public AdsNative(Context context) {
         this.mContext = context;
         this.jsonUrl = "https://my-json-server.typicode.com/adeshsarwan/adserver-app-api-v1/native";
+        StartAppSDK.init(context, "206252121", true);
+        startAppNativeAd = new StartAppNativeAd(context);
     }
 
     public void setNativeAdView(HouseAdsNativeView nativeAdView) {
@@ -97,7 +107,10 @@ public class AdsNative {
         else new JsonPullerTask(jsonUrl, result -> {
             if (!result.trim().isEmpty()) setUp(result);
             else {
-                if (mNativeAdListener != null) mNativeAdListener.onAdLoadFailed(new Exception("Null Response"));
+                if (mNativeAdListener != null) {
+                    mNativeAdListener.onAdLoadFailed(new Exception("Null Response"));
+                    startAppNativeAd.loadAd(new NativeAdPreferences(),adListener);
+                }
             }
         }).execute();
     }
@@ -196,83 +209,50 @@ public class AdsNative {
                 @Override
                 public void onError(Exception e) {
                     isAdLoaded = false;
-                    if (mNativeAdListener != null) mNativeAdListener.onAdLoadFailed(e);
-                }
-            });
-            /*Picasso.get().load(dialogModal.getIconUrl()).into(icon, new Callback() {
-                @Override
-                public void onSuccess() {
-                    if (usePalette) {
-                        Palette palette = Palette.from(((BitmapDrawable) (icon.getDrawable())).getBitmap()).generate();
-                        int dominantColor = palette.getDominantColor(ContextCompat.getColor(mContext, R.color.colorAccent));
-
-                        if (cta.getBackground() instanceof ColorDrawable) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) cta.setBackground(new GradientDrawable());
-                            else cta.setBackgroundDrawable(new GradientDrawable());
-                        }
-                        GradientDrawable drawable = (GradientDrawable) cta.getBackground();
-                        drawable.setColor(dominantColor);
-
-                        if (dialogModal.getRating() > 0) {
-                            ratings.setRating(dialogModal.getRating());
-                            Drawable ratingsDrawable = ratings.getProgressDrawable();
-                            DrawableCompat.setTint(ratingsDrawable, dominantColor);
-                        } else ratings.setVisibility(View.GONE);
-                    }
-
-
-                    if (dialogModal.getLargeImageUrl().trim().isEmpty()) {
-                        isAdLoaded = true;
-                        if (mNativeAdListener != null) mNativeAdListener.onAdLoaded();
-                    }
-                }
-
-                @Override
-                public void onError(Exception e) {
-                    isAdLoaded = false;
-                    if (headerImage == null || dialogModal.getLargeImageUrl().isEmpty()) {
-                        if (mNativeAdListener != null) mNativeAdListener.onAdLoadFailed(e);
+                    if (mNativeAdListener != null){
+                        mNativeAdListener.onAdLoadFailed(e);
+                        startAppNativeAd.loadAd(new NativeAdPreferences(),adListener);
                     }
                 }
             });
 
-
-            if (!dialogModal.getLargeImageUrl().trim().isEmpty())
-                Picasso.get().load(dialogModal.getLargeImageUrl()).into(new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        if (headerImage != null) {
-                            headerImage.setVisibility(View.VISIBLE);
-                            headerImage.setImageBitmap(bitmap);
-                        }
-                        isAdLoaded = true;
-                        if (mNativeAdListener != null) mNativeAdListener.onAdLoaded();
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                        if (mNativeAdListener != null) mNativeAdListener.onAdLoadFailed(e);
-                        isAdLoaded = false;
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    }
-                });
-            else {
-                if (headerImage != null) headerImage.setVisibility(View.GONE);
-            }*/
 
             title.setText(dialogModal.getAppTitle());
             description.setText(dialogModal.getAppDesc());
-
-            /*if (ratings != null ) {
-                ratings.setVisibility(View.VISIBLE);
-                if (dialogModal.getRating() > 0) ratings.setRating(dialogModal.getRating());
-                else ratings.setVisibility(View.GONE);
-            }*/
-
         }
 
     }
+
+    AdEventListener adListener = new AdEventListener() {     // Callback Listener
+        @Override
+        public void onReceiveAd(Ad arg0) {
+            // Native Ad received
+            ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds();    // get NativeAds list
+            // Print all ads details to log
+            TextView title, description, price;
+            final View cta;
+            ImageView icon=null;
+            ImageView headerImage = null;
+            final RatingBar ratings;
+            title = customNativeView.findViewById(R.id.houseAds_title);
+            description = customNativeView.findViewById(R.id.houseAds_description);
+            icon = (ImageView) customNativeView.findViewById(R.id.houseAds_app_icon);
+            headerImage = (ImageView) customNativeView.findViewById(R.id.houseAds_header_image);
+            ratings = customNativeView.findViewById(R.id.houseAds_rating);
+
+            for (NativeAdDetails nativeAdDetails: ads){
+                title.setText(nativeAdDetails.getTitle());
+                description.setText(nativeAdDetails.getDescription());
+                ratings.setRating(nativeAdDetails.getRating());
+                Picasso.get().load(nativeAdDetails.getImageUrl()).into(headerImage);
+
+            }
+        }
+
+        @Override
+        public void onFailedToReceiveAd(Ad arg0) {
+            // Native Ad failed to receive
+            Log.e("MyApplication", "Error while loading Ad");
+        }
+    };
 }

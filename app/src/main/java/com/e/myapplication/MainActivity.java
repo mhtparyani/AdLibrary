@@ -7,13 +7,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.e.adlibrary.AdsInterstitial;
 import com.e.adlibrary.AdsNative;
-import com.e.adlibrary.listener.AdListener;
 import com.e.adlibrary.listener.NativeAdListener;
 import com.google.android.material.button.MaterialButton;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     TextView loading;
@@ -22,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CardView cardView= (CardView) findViewById(R.id.card_view);
-        cardView.setVisibility(View.GONE);
+        //cardView.setVisibility(View.GONE);
         loading = findViewById(R.id.loading);
         AdsNative adsNative= new AdsNative(this);
         adsNative.setNativeAdView(cardView);
