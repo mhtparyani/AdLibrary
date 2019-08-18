@@ -1,4 +1,23 @@
 # AdLibrary
+
+Its an Alert Dialog library with some animated images
+
+	Step 1
+	Add it in your root build.gradle at the end of repositories:
+
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+	Step 2. Add the dependency
+
+	dependencies {
+        	implementation 'com.github.mhtparyani:AdLibrary:SNAPSHOT'
+	}
+	
+	
 AdsNative is the type of Ad where you can pass your own views which includes Ad Assets just like AdMob's NativeAdvancedUnified.
 
 The setNativeAdView() method in AdsNative accepts two types of object to specify your View containing Ad Assets.
@@ -26,13 +45,13 @@ Passing a View object in AdsNative
 	
 	You can also pass a View in the setNativeAdView(), however there are some rules you'll need to follow! 
 	You'll need to use the same IDs for your Ad Assets mentioned below -
-	Ad Assets										IDs
-	Header Image								houseAds_header_image
-	App Icon										houseAds_app_icon
-	Title												houseAds_title
-	Description									houseAds_description
-	Price												houseAds_price
-	RatingBar										houseAds_rating
+	Ad Assets	IDs
+	Header Image	houseAds_header_image
+	App Icon	houseAds_app_icon
+	Title		houseAds_title
+	Description	houseAds_description
+	Price		houseAds_price
+	RatingBar	houseAds_rating
 
 Loading AdsNative
 	
