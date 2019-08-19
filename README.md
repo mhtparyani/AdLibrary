@@ -46,12 +46,11 @@ Passing a View object in AdsNative
 	You can also pass a View in the setNativeAdView(), however there are some rules you'll need to follow! 
 	You'll need to use the same IDs for your Ad Assets mentioned below -
 	Ad Assets	IDs
-	Header Image	houseAds_header_image
-	App Icon	houseAds_app_icon
-	Title		houseAds_title
-	Description	houseAds_description
-	Price		houseAds_price
-	RatingBar	houseAds_rating
+	Header Image	header_image
+	App Icon	app_icon
+	Title		title
+	Description	description
+	RatingBar	rating
 
 Loading AdsNative
 	
