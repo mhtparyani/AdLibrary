@@ -14,7 +14,7 @@ Its an Alert Dialog library with some animated images
 	Step 2. Add the dependency
 
 	dependencies {
-        	implementation 'com.github.mhtparyani:AdLibrary:SNAPSHOT'
+        	implementation 'com.github.mhtparyani:AdLibrary:1.0.0'
 	}
 	
 	
