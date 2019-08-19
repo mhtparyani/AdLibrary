@@ -182,11 +182,11 @@ public class AdsNative {
                 ratings = view.getRatingsView();
             } else {
                 if (customNativeView != null) {
-                    title = customNativeView.findViewById(R.id.houseAds_title);
-                    description = customNativeView.findViewById(R.id.houseAds_description);
-                    icon = (ImageView) customNativeView.findViewById(R.id.houseAds_app_icon);
-                    headerImage = (ImageView) customNativeView.findViewById(R.id.houseAds_header_image);
-                    ratings = customNativeView.findViewById(R.id.houseAds_rating);
+                    title = customNativeView.findViewById(R.id.title);
+                    description = customNativeView.findViewById(R.id.description);
+                    icon = (ImageView) customNativeView.findViewById(R.id.app_icon);
+                    headerImage = (ImageView) customNativeView.findViewById(R.id.header_image);
+                    ratings = customNativeView.findViewById(R.id.rating);
                 } else
                     throw new NullPointerException("NativeAdView is Null. Either pass HouseAdsNativeView or a View in setNativeAdView()");
 
@@ -234,11 +234,11 @@ public class AdsNative {
             ImageView icon=null;
             ImageView headerImage = null;
             final RatingBar ratings;
-            title = customNativeView.findViewById(R.id.houseAds_title);
-            description = customNativeView.findViewById(R.id.houseAds_description);
-            icon = (ImageView) customNativeView.findViewById(R.id.houseAds_app_icon);
-            headerImage = (ImageView) customNativeView.findViewById(R.id.houseAds_header_image);
-            ratings = customNativeView.findViewById(R.id.houseAds_rating);
+            title = customNativeView.findViewById(R.id.title);
+            description = customNativeView.findViewById(R.id.description);
+            icon = (ImageView) customNativeView.findViewById(R.id.app_icon);
+            headerImage = (ImageView) customNativeView.findViewById(R.id.header_image);
+            ratings = customNativeView.findViewById(R.id.rating);
 
             for (NativeAdDetails nativeAdDetails: ads){
                 title.setText(nativeAdDetails.getTitle());
